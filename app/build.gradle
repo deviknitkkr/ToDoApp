@@ -16,11 +16,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-	
-    ext {
-         roomVersion = '1.0.0'
-         archLifecycleVersion = '1.0.0'
-    }
+
 }
 
 dependencies {
