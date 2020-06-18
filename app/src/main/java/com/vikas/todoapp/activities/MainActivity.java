@@ -16,7 +16,6 @@ import android.database.*;
 
 public class MainActivity extends AppCompatActivity {
 
-	SQLiteDatabase sqld;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,40 +25,15 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 		getSupportActionBar().setSubtitle("A app for your ToDo");
-       FloatingActionButton fab = findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ContentValues cv=new ContentValues();
-				cv.put(DatabaseEntity.COLUMN_TITLE,"Changed todo");
-				cv.put(DatabaseEntity.COLUMN_DESCRIPTION,"No description provided");
-				cv.put(DatabaseEntity.COLUMN_STATUS,"not completed");
-			    
-				sqld.update(DatabaseEntity.TABLE_NAME,cv,"_id=1",null);
-				Cursor cursor=sqld.rawQuery("SELECT * FROM "+DatabaseEntity.TABLE_NAME,null);
-				if(cursor.moveToFirst())
-				{
-					while(!cursor.isAfterLast())
-					{
-						String timestamp=cursor.getString(cursor.getColumnIndex(DatabaseEntity.COLUMN_TITLE));
-						Toast.makeText(MainActivity.this,timestamp,Toast.LENGTH_SHORT).show();
-						cursor.moveToNext();
-					}
-				}
-				
-				
-				//sqld.insert(DatabaseEntity.TABLE_NAME,null, cv);
-				//Toast.makeText(MainActivity.this,"inserted",Toast.LENGTH_SHORT).show();
-				
+                
+			
             }
         });
 		
-	try
-	{
-		DatabaseHelper dbhelper=new DatabaseHelper(this,null,null,0);
-		sqld=dbhelper.getWritableDatabase();
-		Toast.makeText(this,"created",Toast.LENGTH_SHORT).show();
-	}catch(Exception e){Toast.makeText(this,e.getMessage(),Toast.LENGTH_SHORT).show();}
     }
 
     @Override

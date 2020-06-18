@@ -10,4 +10,7 @@ public class DatabaseEntity implements BaseColumns
 	public final static String COLUMN_DESCRIPTION="description";
 	public final static String COLUMN_STATUS="status";
 	public final static String COLUMN_TIMESTAMP="timestamp";
+//	public final static String STATUS_COMPLETED="complete";
+//	public final static String STATUS_PENDING="pending";
+//	public final static String STATUS_ALL="all";
 }

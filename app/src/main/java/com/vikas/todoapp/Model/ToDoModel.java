@@ -2,10 +2,23 @@ package com.vikas.todoapp.Model;
 
 public class ToDoModel
 {
+	public enum MSort
+	{
+		NAME,
+		DATE,
+		SIZE
+	}
+	public enum MFilter
+	{
+		COMPLETED,
+		PENDING,
+		ALL
+	}
+	
 	private String todo_title;
 	private String todo_description;
 	private String todo_status;
-
+    private String todo_timestamp;
 
 	public void setTodo_title(String todo_title)
 	{
@@ -37,4 +50,13 @@ public class ToDoModel
 		return todo_status;
 	}
 	
+	public void setTodo_timestamp(String todo_timestamp)
+	{
+		this.todo_timestamp = todo_timestamp;
+	}
+
+	public String getTodo_timestamp()
+	{
+		return todo_timestamp;
+	}
 }
