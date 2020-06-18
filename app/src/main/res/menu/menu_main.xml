@@ -5,6 +5,7 @@
 	
     <item android:id="@+id/action_filter"
         android:title="Filter by.."
+		android:orderInCategory="100"
 		android:icon="@drawable/ic_filter_list_white_24dp"
         app:showAsAction="never" >
 		
@@ -27,6 +28,7 @@
 	
 	<item android:id="@+id/action_sort"
         android:title="Sort by.."
+		android:orderInCategory="100"
 		android:icon="@drawable/ic_sort_white_24dp"
         app:showAsAction="never" >
 		
