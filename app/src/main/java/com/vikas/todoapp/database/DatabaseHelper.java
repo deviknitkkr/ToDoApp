@@ -10,6 +10,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 	public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory,  int version)
 	{
 		super(context,Environment.getExternalStorageDirectory().getAbsolutePath()+"/"+ DatabaseEntity.DATABASE_NAME, null, DatabaseEntity.DATABASE_VERSION);
+
 	}
 	
 	@Override
