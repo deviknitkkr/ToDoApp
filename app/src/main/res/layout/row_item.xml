@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:padding="8dp">
+
+	<CheckBox
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@+id/todo_status"
+		android:layout_centerVertical="true"
+		android:layout_marginLeft="24dp"/>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Large Text vikas choudjahd"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:textSize="20sp"
+		android:layout_marginLeft="16dp"
+		android:layout_toRightOf="@id/todo_status"
+		android:id="@+id/todo_title"/>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Description lorem ipsum da google check"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		android:layout_below="@id/todo_title"
+		android:layout_alignLeft="@id/todo_title"
+		android:id="@+id/todo_description"/>
+
+</RelativeLayout>
+
