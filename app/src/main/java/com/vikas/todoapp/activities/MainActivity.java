@@ -43,11 +43,10 @@ public class MainActivity extends AppCompatActivity {
 
 	public void startRecyclerView()
 	{
-		
+		list=new ArrayList<ToDoModel>();
 		MyViewModel model=MyViewModel.getInstance();
-		list=model.loadData();
-		//list.addAll(model.loadData());
-		//list.addAll(model.loadData());
+		list.addAll(model.loadData());
+	
 		recyclerview=findViewById(R.id.recyclerview);
 		recyclerview.setLayoutManager(new LinearLayoutManager(this));
 		adapter=new MyRecyclerViewAdapter(this,list);
@@ -74,22 +73,28 @@ public class MainActivity extends AppCompatActivity {
 		switch(id)
 		{
 			case R.id.filter_completed:
-				list=MyViewModel.getInstance().applyFilter(ToDoModel.MFilter.COMPLETED);
+				list.clear();
+				list.addAll(MyViewModel.getInstance().applyFilter(ToDoModel.MFilter.COMPLETED));
 				break;
 			case R.id.filter_pending:
-				list=MyViewModel.getInstance().applyFilter(ToDoModel.MFilter.PENDING);
+				list.clear();
+				list.addAll(MyViewModel.getInstance().applyFilter(ToDoModel.MFilter.PENDING));
 				break;
 			case R.id.filter_all:
-				list=MyViewModel.getInstance().applyFilter(ToDoModel.MFilter.ALL);
+				list.clear();
+				list.addAll(MyViewModel.getInstance().applyFilter(ToDoModel.MFilter.ALL));
 				break;
 			case R.id.sortby_name:
-				list=MyViewModel.getInstance().applySort(ToDoModel.MSort.NAME);
+				list.clear();
+				list.addAll(MyViewModel.getInstance().applySort(ToDoModel.MSort.NAME));
 				break;
 			case R.id.sortby_date:
-				list=MyViewModel.getInstance().applySort(ToDoModel.MSort.DATE);
+				list.clear();
+				list.addAll(MyViewModel.getInstance().applySort(ToDoModel.MSort.DATE));
 				break;
 			case R.id.sortby_size:
-				list=MyViewModel.getInstance().applySort(ToDoModel.MSort.SIZE);
+				list.clear();
+				list.addAll(MyViewModel.getInstance().applySort(ToDoModel.MSort.SIZE));
 				break;
 		}
 		adapter.notifyDataSetChanged();
