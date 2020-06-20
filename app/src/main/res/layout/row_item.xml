@@ -15,7 +15,7 @@
 	<TextView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="Large Text vikas choudjahd"
+		android:text="Title"
 		android:textAppearance="?android:attr/textAppearanceLarge"
 		android:textSize="20sp"
 		android:layout_marginLeft="16dp"
@@ -25,7 +25,7 @@
 	<TextView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="Description lorem ipsum da google check"
+		android:text="Description"
 		android:textAppearance="?android:attr/textAppearanceSmall"
 		android:layout_below="@id/todo_title"
 		android:layout_alignLeft="@id/todo_title"

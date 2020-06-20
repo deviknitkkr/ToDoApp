@@ -7,16 +7,30 @@ import com.vikas.todoapp.database.*;
 import java.util.*;
 import java.util.function.*;
 import java.util.stream.*;
+import android.os.*;
+import android.widget.*;
 
 public class MyViewModel extends ViewModel
 {
 	SQLiteDatabase sqld;
-	private Context mContext;
+	private static Context mContext;
 	List<ToDoModel> list;
 	ToDoModel.MFilter filter;
 	ToDoModel.MSort sort;
+	private static MyViewModel myviewmodel;
 	
-	public MyViewModel(Context context)
+	public static void startWith(Context context)
+	{
+		mContext=context;
+		myviewmodel=new MyViewModel(context);
+	}
+	
+	public static MyViewModel getInstance()
+	{
+		return myviewmodel;
+	}
+	
+	private MyViewModel(Context context)
 	{
 		mContext=context;
 		init();
@@ -31,13 +45,14 @@ public class MyViewModel extends ViewModel
 	
 	public List<ToDoModel> loadData()
 	{
+		list=new ArrayList<ToDoModel>();
 		list.clear();
 		Cursor cursor=sqld.rawQuery("SELECT * FROM "+DatabaseEntity.TABLE_NAME,null);
 		if(cursor.moveToFirst())
 		{
 			while(!cursor.isAfterLast())
 			{
-				ToDoModel todo=new ToDoModel();
+				ToDoModel todo=new ToDoModel(null,null,null);
 				todo.setTodo_title(cursor.getString(cursor.getColumnIndex(DatabaseEntity.COLUMN_TITLE)));
 				todo.setTodo_description(cursor.getString(cursor.getColumnIndex(DatabaseEntity.COLUMN_DESCRIPTION)));
 				todo.setTodo_timestamp(cursor.getString(cursor.getColumnIndex(DatabaseEntity.COLUMN_TIMESTAMP)));
@@ -56,7 +71,7 @@ public class MyViewModel extends ViewModel
 		cv.put(DatabaseEntity.COLUMN_TITLE,model.getTodo_title());
 		cv.put(DatabaseEntity.COLUMN_DESCRIPTION,model.getTodo_description());
 		cv.put(DatabaseEntity.COLUMN_STATUS,model.getTodo_status());
-		
+	
 		sqld.insert(DatabaseEntity.TABLE_NAME,null,cv);
 	}
 	
@@ -95,6 +110,7 @@ public class MyViewModel extends ViewModel
 	
 	public List<ToDoModel> applySort(final ToDoModel.MSort sort)
 	{
+		Toast.makeText(mContext,"Sort applied:"+sort.toString(),Toast.LENGTH_SHORT).show();
 		this.sort=sort;
 		Comparator comparator=new Comparator<ToDoModel>(){
 
@@ -124,4 +140,6 @@ public class MyViewModel extends ViewModel
 	{
 		return this.sort;
 	}
+	
+	
 }
