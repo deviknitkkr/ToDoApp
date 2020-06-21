@@ -1,2 +1,2 @@
 # ToDoApp
-Test project based on MVP design pattern.
+Test project based on MVVM design pattern.
