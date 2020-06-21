@@ -20,10 +20,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 	{
 		this.mContext = mContext;
 		this.list = list;
-
 	}
-
-
 
 	@Override
 	public MyRecyclerViewAdapter.MyViewHolder onCreateViewHolder(ViewGroup p1, int p2)
@@ -91,7 +88,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 							tmp.setTodo_status(ToDoModel.MFilter.PENDING.toString());
 						}
 						MyViewModel.getInstance().modifyData(tmp,tmp.getId());
-
+						
 					}
 				});
 
@@ -104,6 +101,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 						Intent intent=new Intent(mContext, EditTodoActivity.class);
 						intent.putExtra(DatabaseEntity.COLUMN_TITLE, tmp.getTodo_title());
 						intent.putExtra(DatabaseEntity.COLUMN_DESCRIPTION, tmp.getTodo_description());
+						intent.putExtra(DatabaseEntity.COLUMN_STATUS,tmp.getTodo_status());
 						intent.putExtra(DatabaseEntity._ID,Integer.toString(tmp.getId()));
 						
 						((AppCompatActivity) mContext).startActivityForResult(intent, 291);

@@ -10,14 +10,15 @@
 
 		<menu>
 			<group 
-				android:checkableBehavior="single">  
-				<item 
-					android:id="@+id/filter_completed"   
-					android:title="Completed"/>
+				android:checkableBehavior="single"> 
 				
 				<item
 					android:id="@+id/filter_pending"   
 					android:title="Pending"/>
+				
+				<item 
+					android:id="@+id/filter_completed"   
+					android:title="Completed"/>
 				
 				<item 
 					android:id="@+id/filter_all"  
@@ -36,11 +37,12 @@
 		<menu>
 			<group 
 				android:checkableBehavior="single">  
-				<item android:id="@+id/sortby_name"   
-					android:title="Name"/>
 				
 				<item android:id="@+id/sortby_date"   
 					android:title="Date"/>
+				
+				<item android:id="@+id/sortby_name"   
+					android:title="Name"/>
 
 				<item android:id="@+id/sortby_size"  
 					android:title="Size"/>
