@@ -2,7 +2,7 @@ package com.vikas.todoapp.Model;
 
 public class ToDoModel
 {
-
+	
 	public enum MSort
 	{
 		NAME,
@@ -20,6 +20,7 @@ public class ToDoModel
 	private String todo_description;
 	private String todo_status;
     private String todo_timestamp;
+	private int id;
 
 	public ToDoModel(String todo_title, String todo_description, String todo_status)
 	{
@@ -66,5 +67,15 @@ public class ToDoModel
 	public String getTodo_timestamp()
 	{
 		return todo_timestamp;
+	}
+	
+	public void setId(int id)
+	{
+		this.id = id;
+	}
+
+	public int getId()
+	{
+		return id;
 	}
 }
