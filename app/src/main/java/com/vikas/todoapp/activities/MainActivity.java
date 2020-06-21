@@ -40,11 +40,10 @@ public class MainActivity extends AppCompatActivity
 				@Override
 				public void onClick(View view)
 				{
-					//startActivity(new Intent(MainActivity.this,EditTodoActivity.class));
 					startActivityForResult(new Intent(MainActivity.this, NewTodoActivity.class), MY_REQUEST_CODE_NEW_TODO);
 				}
 			});
-
+			
     }
 
 	public void startRecyclerView()
@@ -55,7 +54,6 @@ public class MainActivity extends AppCompatActivity
 		adapter = new MyRecyclerViewAdapter(this, list);
 		recyclerview.setAdapter(adapter);
 		//OverScrollDecoratorHelper.setUpOverScroll(recyclerview, OverScrollDecoratorHelper.ORIENTATION_VERTICAL);
-
 	}
 
 	public void startSharedPrefs()
@@ -70,7 +68,8 @@ public class MainActivity extends AppCompatActivity
 
 		((MenuBuilder) menu).setOptionalIconsVisible(true);
         getMenuInflater().inflate(R.menu.menu_main, menu);
-
+        menu.findItem(R.id.filter_pending).setChecked(true);
+		menu.findItem(R.id.sortby_date).setChecked(true);
         return true;
     }
 
@@ -102,6 +101,8 @@ public class MainActivity extends AppCompatActivity
 			case R.id.sortby_size:
 				MyViewModel.getInstance().applySort(ToDoModel.MSort.SIZE.toString());
 				break;
+			default:
+			    return true;
 		}
 		list.clear();
 		list.addAll(MyViewModel.getInstance().loadData());
@@ -109,6 +110,7 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
@@ -131,13 +133,12 @@ public class MainActivity extends AppCompatActivity
 			                            data.getStringExtra(DatabaseEntity.COLUMN_DESCRIPTION),
 										ToDoModel.MFilter.PENDING.toString());
 			tmp.setId(Integer.parseInt(data.getStringExtra(DatabaseEntity._ID)));
-			
+			tmp.setTodo_status(data.getStringExtra(DatabaseEntity.COLUMN_STATUS));
 			MyViewModel.getInstance().modifyData(tmp,tmp.getId());
 			list.clear();
 			list.addAll(MyViewModel.getInstance().loadData());
 			adapter.notifyDataSetChanged();
 		}
 	}
-
-
+	
 }

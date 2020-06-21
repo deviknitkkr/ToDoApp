@@ -13,9 +13,10 @@ import android.support.v7.widget.Toolbar;
 public class EditTodoActivity extends AppCompatActivity
 {
 
-	EditText title;
-	EditText description;
-	int id;
+	private EditText title;
+	private EditText description;
+	private int id;
+	private String status;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -40,6 +41,7 @@ public class EditTodoActivity extends AppCompatActivity
 		title.setText(intent.getStringExtra(DatabaseEntity.COLUMN_TITLE));
 		description.setText(intent.getStringExtra(DatabaseEntity.COLUMN_DESCRIPTION));
 		id=Integer.parseInt(intent.getStringExtra(DatabaseEntity._ID));
+		status=intent.getStringExtra(DatabaseEntity.COLUMN_STATUS);
 	}
 	
 	@Override
@@ -55,6 +57,7 @@ public class EditTodoActivity extends AppCompatActivity
 		Intent data=new Intent();
 		data.putExtra(DatabaseEntity.COLUMN_TITLE, mTitle);
 		data.putExtra(DatabaseEntity.COLUMN_DESCRIPTION, mDescription);
+		data.putExtra(DatabaseEntity.COLUMN_STATUS,status);
 		data.putExtra(DatabaseEntity._ID,Integer.toString(id));
 		setResult(RESULT_OK, data);
 		super.onBackPressed();
@@ -62,9 +65,21 @@ public class EditTodoActivity extends AppCompatActivity
 
 
 	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		getMenuInflater().inflate(R.menu.editor_menu,menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+	
+
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
 		if (item.getItemId() == android.R.id.home)
+		{
+			super.onBackPressed();
+		}
+		if(item.getItemId()==R.id.editor_save)
 		{
 			onBackPressed();
 		}

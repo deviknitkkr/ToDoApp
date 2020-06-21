@@ -52,11 +52,23 @@ public class NewTodoActivity extends AppCompatActivity
 		super.onBackPressed();
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		getMenuInflater().inflate(R.menu.editor_menu,menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
 		if (item.getItemId() == android.R.id.home)
+		{
+			super.onBackPressed();
+		}
+		if(item.getItemId()==R.id.editor_save)
 		{
 			onBackPressed();
 		}
