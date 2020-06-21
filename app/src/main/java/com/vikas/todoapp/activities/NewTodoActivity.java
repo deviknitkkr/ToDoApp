@@ -10,13 +10,13 @@ import me.everything.android.ui.overscroll.*;
 
 import android.support.v7.widget.Toolbar;
 
-public class EditTodoActivity extends AppCompatActivity
+public class NewTodoActivity extends AppCompatActivity
 {
 
 	EditText title;
 	EditText description;
 	int id;
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -31,17 +31,9 @@ public class EditTodoActivity extends AppCompatActivity
 
 		title = findViewById(R.id.edit_title);
 		description = findViewById(R.id.edit_description);
-        startIntent();
+		
 	}
 
-	public void startIntent()
-	{
-		Intent intent=getIntent();
-		title.setText(intent.getStringExtra(DatabaseEntity.COLUMN_TITLE));
-		description.setText(intent.getStringExtra(DatabaseEntity.COLUMN_DESCRIPTION));
-		id=Integer.parseInt(intent.getStringExtra(DatabaseEntity._ID));
-	}
-	
 	@Override
 	public void onBackPressed()
 	{
@@ -55,7 +47,7 @@ public class EditTodoActivity extends AppCompatActivity
 		Intent data=new Intent();
 		data.putExtra(DatabaseEntity.COLUMN_TITLE, mTitle);
 		data.putExtra(DatabaseEntity.COLUMN_DESCRIPTION, mDescription);
-		data.putExtra(DatabaseEntity._ID,Integer.toString(id));
+		
 		setResult(RESULT_OK, data);
 		super.onBackPressed();
 	}

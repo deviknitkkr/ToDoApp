@@ -24,6 +24,10 @@
 		
 		<activity android:name=".DebugActivity"></activity>
 		<activity 
+			android:name=".NewTodoActivity"
+			android:theme="@style/AppTheme.NoActionBar"></activity>
+			
+		<activity 
 			android:name=".EditTodoActivity"
 			android:theme="@style/AppTheme.NoActionBar"></activity>
 		

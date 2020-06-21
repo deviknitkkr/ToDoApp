@@ -90,7 +90,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 						{
 							tmp.setTodo_status(ToDoModel.MFilter.PENDING.toString());
 						}
-						MyViewModel.getInstance().modifyData(tmp, getPosition());
+						MyViewModel.getInstance().modifyData(tmp,tmp.getId());
 
 					}
 				});
@@ -100,12 +100,12 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 					@Override
 					public void onClick(View p1)
 					{  
-						current_pos = getPosition();
 					    ToDoModel tmp=list.get(getPosition());
 						Intent intent=new Intent(mContext, EditTodoActivity.class);
 						intent.putExtra(DatabaseEntity.COLUMN_TITLE, tmp.getTodo_title());
 						intent.putExtra(DatabaseEntity.COLUMN_DESCRIPTION, tmp.getTodo_description());
-
+						intent.putExtra(DatabaseEntity._ID,Integer.toString(tmp.getId()));
+						
 						((AppCompatActivity) mContext).startActivityForResult(intent, 291);
 					}
 				});

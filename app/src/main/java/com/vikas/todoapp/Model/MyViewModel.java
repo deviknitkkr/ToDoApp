@@ -19,8 +19,6 @@ public class MyViewModel extends ViewModel
 	private Comparator comparator;
 	private Predicate filter_predicate;
 	private static MyViewModel myviewmodel;
-	private SharedPreferences prefs;
-	private SharedPreferences.Editor prefs_editor;
 	
 	public static void startWith(Context context)
 	{
@@ -44,8 +42,6 @@ public class MyViewModel extends ViewModel
 		DatabaseHelper dbhelper=new DatabaseHelper(mContext,null,null,0);
 		sqld=dbhelper.getWritableDatabase();
 		loadData();
-		prefs=PreferenceManager.getDefaultSharedPreferences(mContext);
-		prefs_editor=prefs.edit();
 	}
 	
 	public List<ToDoModel> loadData()
@@ -62,21 +58,22 @@ public class MyViewModel extends ViewModel
 				todo.setTodo_description(cursor.getString(cursor.getColumnIndex(DatabaseEntity.COLUMN_DESCRIPTION)));
 				todo.setTodo_timestamp(cursor.getString(cursor.getColumnIndex(DatabaseEntity.COLUMN_TIMESTAMP)));
 				todo.setTodo_status(cursor.getString(cursor.getColumnIndex(DatabaseEntity.COLUMN_STATUS)));
+				todo.setId(cursor.getInt(cursor.getColumnIndex(DatabaseEntity._ID)));
 				list.add(todo);
 				cursor.moveToNext();
 			}
 		}
-		return list;
+		return list.stream().filter(getCurrentFilterPredicate()).sorted(getCurrentSortComparator()).collect(Collectors.toList());
 	}
 	
 	public void insertData(ToDoModel model)
 	{
-		list.add(model);
+		//list.add(model);
 		ContentValues cv=new ContentValues();
 		cv.put(DatabaseEntity.COLUMN_TITLE,model.getTodo_title());
 		cv.put(DatabaseEntity.COLUMN_DESCRIPTION,model.getTodo_description());
 		cv.put(DatabaseEntity.COLUMN_STATUS,model.getTodo_status());
-	
+        
 		sqld.insert(DatabaseEntity.TABLE_NAME,null,cv);
 	}
 	
@@ -86,34 +83,30 @@ public class MyViewModel extends ViewModel
 		cv.put(DatabaseEntity.COLUMN_TITLE,model.getTodo_title());
 		cv.put(DatabaseEntity.COLUMN_DESCRIPTION,model.getTodo_description());
 		cv.put(DatabaseEntity.COLUMN_STATUS,model.getTodo_status());
-		sqld.update(DatabaseEntity.TABLE_NAME,cv,"_id="+(position+1),null);
+		sqld.update(DatabaseEntity.TABLE_NAME,cv,"_id="+position,null);
 	}
 	
-	public List<ToDoModel> applyFilter(final String filter)
+	public void applyFilter(final String filter)
 	{
-		prefs_editor.putString("Filter",filter);
-		
 		 filter_predicate=new Predicate<ToDoModel>(){
-
 			@Override
 			public boolean test(ToDoModel p1)
 			{
-				if(filter.toString().equals(ToDoModel.MFilter.COMPLETED.toString()))
+				if(filter.equals(ToDoModel.MFilter.COMPLETED.toString()))
 				{
 					return p1.getTodo_status().equals(ToDoModel.MFilter.COMPLETED.toString());
 				}
-				if(filter.toString().equals(ToDoModel.MFilter.PENDING.toString()))
+				if(filter.equals(ToDoModel.MFilter.PENDING.toString()))
 				{
 					return p1.getTodo_status().equals(ToDoModel.MFilter.PENDING.toString());
 				}
-				if(filter.toString().equals(ToDoModel.MFilter.ALL.toString()))
+				if(filter.equals(ToDoModel.MFilter.ALL.toString()))
 				{
 					return true;
 				}
 				return true;
 			}
 		};
-		return list.stream().filter(filter_predicate).sorted(getCurrentSortComparator()).collect(Collectors.toList());
 	}
 	
 	
@@ -128,17 +121,15 @@ public class MyViewModel extends ViewModel
 			@Override
 			public boolean test(ToDoModel p1)
 			{
-				return true;
+				return p1.getTodo_status().equals(ToDoModel.MFilter.PENDING.toString());
 			}
 		};
 	}
 	
 	
-	public List<ToDoModel> applySort(final String sort)
+	public void applySort(final String sort)
 	{
-		prefs_editor.putString("Sort",sort);
 		 comparator=new Comparator<ToDoModel>(){
-
 			@Override
 			public int compare(ToDoModel p1, ToDoModel p2)
 			{
@@ -157,8 +148,6 @@ public class MyViewModel extends ViewModel
 				return 0;
 			}
 		};
-		
-		return list.stream().filter(getCurrentFilterPredicate()).sorted(comparator).collect(Collectors.toList());
 	}
 	
 	public Comparator getCurrentSortComparator()
@@ -172,7 +161,7 @@ public class MyViewModel extends ViewModel
 			@Override
 			public int compare(ToDoModel p1, ToDoModel p2)
 			{
-				return 0;
+				return p2.getTodo_timestamp().compareTo(p1.getTodo_timestamp());
 			}
 		};
 	}
