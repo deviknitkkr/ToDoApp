@@ -9,6 +9,7 @@ import java.util.function.*;
 import java.util.stream.*;
 import android.os.*;
 import android.widget.*;
+import android.preference.*;
 
 public class MyViewModel extends ViewModel
 {
@@ -18,6 +19,8 @@ public class MyViewModel extends ViewModel
 	private Comparator comparator;
 	private Predicate filter_predicate;
 	private static MyViewModel myviewmodel;
+	private SharedPreferences prefs;
+	private SharedPreferences.Editor prefs_editor;
 	
 	public static void startWith(Context context)
 	{
@@ -36,11 +39,13 @@ public class MyViewModel extends ViewModel
 		init();
 	}
 	
-	public void init()
+	private void init()
 	{
 		DatabaseHelper dbhelper=new DatabaseHelper(mContext,null,null,0);
 		sqld=dbhelper.getWritableDatabase();
 		loadData();
+		prefs=PreferenceManager.getDefaultSharedPreferences(mContext);
+		prefs_editor=prefs.edit();
 	}
 	
 	public List<ToDoModel> loadData()
@@ -84,9 +89,11 @@ public class MyViewModel extends ViewModel
 		sqld.update(DatabaseEntity.TABLE_NAME,cv,"_id="+(position+1),null);
 	}
 	
-	public List<ToDoModel> applyFilter(final ToDoModel.MFilter filter)
+	public List<ToDoModel> applyFilter(final String filter)
 	{
-		Predicate filter_predicate=new Predicate<ToDoModel>(){
+		prefs_editor.putString("Filter",filter);
+		
+		 filter_predicate=new Predicate<ToDoModel>(){
 
 			@Override
 			public boolean test(ToDoModel p1)
@@ -127,22 +134,23 @@ public class MyViewModel extends ViewModel
 	}
 	
 	
-	public List<ToDoModel> applySort(final ToDoModel.MSort sort)
+	public List<ToDoModel> applySort(final String sort)
 	{
+		prefs_editor.putString("Sort",sort);
 		 comparator=new Comparator<ToDoModel>(){
 
 			@Override
 			public int compare(ToDoModel p1, ToDoModel p2)
 			{
-				if(sort.toString().equals(ToDoModel.MSort.NAME.toString()))
+				if(sort.equals(ToDoModel.MSort.NAME.toString()))
 				{
 					return p1.getTodo_title().compareTo(p2.getTodo_title());
 				}
-				if(sort.toString().equals(ToDoModel.MSort.DATE.toString()))
+				if(sort.equals(ToDoModel.MSort.DATE.toString()))
 				{
-					return p1.getTodo_timestamp().compareTo(p2.getTodo_timestamp());
+					return -(p1.getTodo_timestamp().compareTo(p2.getTodo_timestamp()));
 				}
-				if(sort.toString().equals(ToDoModel.MSort.SIZE.toString()))
+				if(sort.equals(ToDoModel.MSort.SIZE.toString()))
 				{
 					return p1.getTodo_description().length()-p2.getTodo_description().length();
 				}
@@ -150,7 +158,7 @@ public class MyViewModel extends ViewModel
 			}
 		};
 		
-		return list.stream().sorted(comparator).filter(getCurrentFilterPredicate()).collect(Collectors.toList());
+		return list.stream().filter(getCurrentFilterPredicate()).sorted(comparator).collect(Collectors.toList());
 	}
 	
 	public Comparator getCurrentSortComparator()

@@ -2,51 +2,53 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.e.myapplication.MainActivity" >
-	
-    <item android:id="@+id/action_filter"
+
+    <item
         android:title="Filter by.."
-		android:orderInCategory="100"
 		android:icon="@drawable/ic_filter_list_white_24dp"
         app:showAsAction="never" >
-		
+
 		<menu>
 			<group 
 				android:checkableBehavior="single">  
-				<item android:id="@+id/filter_completed"   
-					android:title="Completed" >  
-				</item>  
-				<item android:id="@+id/filter_pending"   
-					android:title="Pending">  
-				</item>  
-				<item android:id="@+id/filter_all"  
-					android:title="All">  
-				</item>  
+				<item 
+					android:id="@+id/filter_completed"   
+					android:title="Completed"/>
+				
+				<item
+					android:id="@+id/filter_pending"   
+					android:title="Pending"/>
+				
+				<item 
+					android:id="@+id/filter_all"  
+					android:title="All"/>
+				
 			</group>  
 		</menu>
-		
+
 	</item>
-	
-	<item android:id="@+id/action_sort"
+
+	<item
         android:title="Sort by.."
-		android:orderInCategory="100"
 		android:icon="@drawable/ic_sort_white_24dp"
         app:showAsAction="never" >
-		
+
 		<menu>
 			<group 
 				android:checkableBehavior="single">  
 				<item android:id="@+id/sortby_name"   
-					android:title="Name" >  
-				</item>  
+					android:title="Name"/>
+				
 				<item android:id="@+id/sortby_date"   
-					android:title="Date">  
-				</item>  
+					android:title="Date"/>
+
 				<item android:id="@+id/sortby_size"  
-					android:title="Size">  
-				</item>  
+					android:title="Size"/>
+				
 			</group>  
+
 		</menu>
-		
+
 	</item>
-	
+
 </menu>
