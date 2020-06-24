@@ -1,10 +1,8 @@
 package com.vikas.todoapp.activities;
 import android.app.*;
-import java.io.*;
-
-import android.content.Context;
-import android.content.Intent;
+import android.content.*;
 import com.vikas.todoapp.Model.*;
+import java.io.*;
 /**import com.google.android.gms.ads.MobileAds;**/
 
 public class AIDEApplication extends Application
@@ -15,6 +13,27 @@ public class AIDEApplication extends Application
 	public void onCreate() {
 		/**MobileAds.initialize(this, "$appid$");**/
 		MyViewModel.startWith(this);
+		
+		//TinyDancer.create().show(this);
+
+		//alternatively
+//		TinyDancer.create()
+//			.redFlagPercentage(.1f) // set red indicator for 10%....different from default
+//			.startingXPosition(200)
+//			.startingYPosition(600)
+//			.show(this);
+
+		//you can add a callback to get frame times and the calculated
+		//number of dropped frames within that window
+//		TinyDancer.create()
+//			.addFrameDataCallback(new FrameDataCallback() {
+//				@Override
+//				public void doFrame(long previousFrameNS, long currentFrameNS, int droppedFrames) {
+//					//collect your stats here
+//				}
+//			})
+//			.show(context);
+			
 		this.uncaughtExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
 
 		Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
