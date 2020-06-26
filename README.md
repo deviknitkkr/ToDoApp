@@ -3,9 +3,9 @@ Test project based on MVVM design pattern.
 
 ## Screenshots
 <img
-	src="https://raw.githubusercontent.com/markusfisch/ShaderEditor/gh-pages/screenshot-main.png"
+	src="https://github.com/deviknitkkr/ToDoApp/blob/master/images/Screenshot_2.jpg"
 	alt="Screenshot" width="160"/>
 <img
-	src="https://raw.githubusercontent.com/markusfisch/ShaderEditor/gh-pages/screenshot-keyboard.png"
+	src="https://github.com/deviknitkkr/ToDoApp/blob/master/images/Screenshot_3.jpg"
 	alt="Screenshot with soft keyboard" width="160"/>
 
